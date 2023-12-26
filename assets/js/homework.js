@@ -168,96 +168,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Задание 4
 
-const coursesMass = [
-  {
-    cardImg: {
-      src: "assets/images/courses-01.jpg",
-      alt: "Course #1",
-    },
-    header: "Digital Marketing",
-    descr:
-      "You can get free images and videos for your websites by visiting Unsplash, Pixabay, and Pexels.",
-    authorImg: {
-      src: "assets/images/author-01.png",
-      alt: "Author #1",
-    },
-  },
-  {
-    cardImg: {
-      src: "assets/images/courses-02.jpg",
-      alt: "Course #2",
-    },
-    header: "Business World",
-    descr:
-      "Quisque cursus augue ut velit dictum, quis volutpat enim blandit. Maecenas a lectus ac ipsum porta.",
-    authorImg: {
-      src: "assets/images/author-02.png",
-      alt: "Author #2",
-    },
-  },
-  {
-    cardImg: {
-      src: "assets/images/courses-03.jpg",
-      alt: "Course #3",
-    },
-    header: "Media Technology",
-    descr:
-      "Pellentesque ultricies diam magna, auctor cursus lectus pretium nec.",
-    authorImg: {
-      src: "assets/images/author-03.png",
-      alt: "Author #3",
-    },
-  },
-  {
-    cardImg: {
-      src: "assets/images/courses-04.jpg",
-      alt: "Course #4",
-    },
-    header: "Communications",
-    descr:
-      "Download free images and videos for your websites by visiting Unsplash, Pixabay, and Pexels.",
-    authorImg: {
-      src: "assets/images/author-04.png",
-      alt: "Author #4",
-    },
-  },
-  {
-    cardImg: {
-      src: "assets/images/courses-05.jpg",
-      alt: "Course #5",
-    },
-    header: "Business Ethics",
-    descr:
-      "Pellentesque ultricies diam magna, auctor cursus lectus pretium nec. Maecenas finibus lobortis enim.",
-    authorImg: {
-      src: "assets/images/author-05.png",
-      alt: "Author #5",
-    },
-  },
-]
+const getResouse = async (url) => {
+  const response = await fetch(url)
+  return response.json() // возвращаем промис
+}
 
 function cardContent(mass) {
   // Создаем функцию, которая заполняет div'ы с классом carousel__item из HTML-документа соответсвующей информацией,
   // полученной из массива coursesMass
-  const carousel = document.querySelectorAll(".carousel__item")
+  const carousel = document.querySelector(".carousel__wrapper")
 
-  carousel.forEach((item, key) => {
-    item.innerHTML = `
-    <img src=${mass[key].cardImg.src} alt=${mass[key].cardImg.alt} />
+  for (item of mass) {
+    const carouselItem = document.createElement("div")
+    carouselItem.classList.add("carousel__item")
+    carouselItem.innerHTML = `
+    <img src=${item.cardImg.src} alt=${item.cardImg.alt} />
     <div class="carousel__content">
-      <h4>${mass[key].header}</h4>
+      <h4>${item.header}</h4>
       <p>
-      ${mass[key].descr}
+      ${item.descr}
       </p>
       <div class="item__last-row">
-        <img src=${mass[key].authorImg.src} alt=${mass[key].authorImg.alt} />
+        <img src=${item.authorImg.src} alt=${item.authorImg.alt} />
         <div class="text-button-pay">
           <a href="#">Pay <i class="fa fa-angle-double-right"></i></a>
         </div>
       </div>
     </div>
     `
-  })
+    carousel.append(carouselItem)
+  }
 }
 
-cardContent(coursesMass)
+getResouse("http://localhost:3000/cards").then((response) => {
+  cardContent(response)
+})
