@@ -174,8 +174,8 @@ const getResouse = async (url) => {
 }
 
 function cardContent(mass) {
-  // Создаем функцию, которая заполняет div'ы с классом carousel__item из HTML-документа соответсвующей информацией,
-  // полученной из массива coursesMass
+  // Создаем функцию, которая в соответствии с каждым обьектом из входного массива создет внутри carousel__wrapper div'ы
+  // с классом carousel__item
   const carousel = document.querySelector(".carousel__wrapper")
 
   for (item of mass) {
