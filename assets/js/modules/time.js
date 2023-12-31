@@ -48,10 +48,16 @@ const timeFunc = () => {
       hours.innerHTML = getZero(t.hours)
       minutes.innerHTML = getZero(t.minutes)
       seconds.innerHTML = getZero(t.seconds)
+      console.log(t.total)
 
       if (t.total <= 0) {
         // и в том случае, если разница во времени получення в миллисекундах будет меньше или равна нулю
         clearInterval(timeInterval) // мы прекращаем действие интервала
+        // и выставляем все значения таймера по 0
+        days.innerHTML = getZero(0)
+        hours.innerHTML = getZero(0)
+        minutes.innerHTML = getZero(0)
+        seconds.innerHTML = getZero(0)
       }
     }
   }
